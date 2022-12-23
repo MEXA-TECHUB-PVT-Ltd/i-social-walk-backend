@@ -19,7 +19,7 @@ $target_file = $target_dir . basename($_FILES["image"]["name"]);
 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
 
 
-    $dbpath = '../assets/profileimage/' . basename($_FILES["image"]["name"]);
+    $dbpath = 'assets/' . basename($_FILES["image"]["name"]);
 
     $sql = "UPDATE challenges SET image='$dbpath' WHERE  id='$id' ";
     $run = mysqli_query($conn, $sql);
@@ -48,8 +48,8 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         }
         if ($login == 1) {
             $response[] = array(
-                'message' => 'Image Updated Successfully', 'n
-                ame' => $name, 'created_by_user_id' => $created_by_user_id,
+                'message' => 'Image Updated Successfully',
+                'name' => $name, 'created_by_user_id' => $created_by_user_id,
                 'challenge_type' => $challenge_type,
                 'challenge_visibility' => $challenge_visibility,
                 'challenge_privacy' => $challenge_privacy,
@@ -75,4 +75,11 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         );
         echo json_encode($response);
     }
+} else {
+
+    $response[] = array(
+        "message" => 'Image not uploaded',
+        "error" => true,
+    );
+    echo json_encode($response);
 }

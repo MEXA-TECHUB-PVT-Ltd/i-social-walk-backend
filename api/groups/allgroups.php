@@ -3,11 +3,20 @@ header('Content-Type:application/json');
 header('Acess-Control-Allow-Origin:*');
 include('../include/connection.php');
 
-$sql = "Select * from groups";
-$result = mysqli_query($conn, $sql) or die("Query failed");
-if (mysqli_num_rows($result) > 0) {
-    $output = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    echo json_encode(array('error' => false, 'Message' => 'Succesfully fetched Groups', 'Groups' => $output));
-} else {
-    echo json_encode(array('error' => true, 'message' => 'No record found', 'status' => false));
+$sql = "SELECT * FROM groups";
+$run = mysqli_query($conn, $sql);
+while ($row = mysqli_fetch_assoc($run)) {
+
+
+    $response[] = array(
+        "id" => $row['id'],
+        "image_link" => $row['image'],
+        "name" => $row['name'],
+        "group_privacy" => $row['group_privacy'],
+        "group_visibility" => $row['group_visibility'],
+        "created_at" => $row['created_at'],
+    );
 }
+
+
+echo json_encode($response);

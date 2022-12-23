@@ -16,7 +16,7 @@ $target_file = $target_dir . basename($_FILES["image"]["name"]);
 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
 
 
-    $dbpath = '../assets/' . basename($_FILES["image"]["name"]);
+    $dbpath = 'assets/' . basename($_FILES["image"]["name"]);
 
     $sql = "UPDATE groups SET image='$dbpath' WHERE  id='$id'";
     $run = mysqli_query($conn, $sql);
@@ -37,7 +37,7 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
         }
         if ($login == 1) {
             $response[] = array(
-                "message" => 'Image Update Successful',
+                "message" => 'Image Updates Successful',
                 "image" =>  $dbpath,
                 "created_by_user_id" => $created_by_user_id,
                 "name" => $name,

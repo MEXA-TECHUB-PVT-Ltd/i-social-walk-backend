@@ -35,3 +35,4 @@ if ($rowcount > 0) {
     $response[] =  array('message' => 'No record found', 'error' => true);
 }
 echo json_encode($response);
+?>

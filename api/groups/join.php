@@ -101,6 +101,10 @@ if ($rowcount > 0) {
                 'User Name' => $name,
                 'created_at' => $created_at,
                 'created_by_user_id' => $created_by_user_id,
+                'name' => $name,
+                'image' => $image,
+                'group_visibility' => $group_visibility,
+                'group_privacy' => $group_privacy,
 
 
 

@@ -6,12 +6,12 @@ $data = json_decode($EncodeData, true);
 
 $challenge_id = $data['challenge_id'];
 
- $sql12 = "Select *  from challenges where id='$challenge_id'";
+$sql12 = "Select *  from challenges where id='$challenge_id'";
 $query = mysqli_query($conn, $sql12);
 if (mysqli_num_rows($query) > 0) {
     if ($query) {
         while ($row = mysqli_fetch_assoc($query)) {
-            echo   $challenge_type = $row['challenge_type'];
+            $challenge_type = $row['challenge_type'];
         }
     }
 

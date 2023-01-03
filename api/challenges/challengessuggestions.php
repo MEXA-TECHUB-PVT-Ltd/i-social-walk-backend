@@ -22,6 +22,7 @@ if (mysqli_num_rows($run)) {
             $name = $row['name'];
             $admin = $row['created_by_user_id'];
             $challenge_privacy = $row['challenge_privacy'];
+            $challenge_type = $row['challenge_type'];
             $challenge_visibility = $row['challenge_visibility'];
             $start_date = $row['start_date'];
 
@@ -31,6 +32,7 @@ if (mysqli_num_rows($run)) {
                 "admin" => $admin,
                 "start_date" => $start_date,
                 "status" => 'challenges for suggestions',
+                "challenge type" => $challenge_type,
                 "challenge privacy" => $challenge_privacy,
                 "challenge visibility" =>  $challenge_visibility,
                 "error" => false,

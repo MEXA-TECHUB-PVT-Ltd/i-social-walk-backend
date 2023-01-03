@@ -9,6 +9,7 @@ if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file)) {
     $sql = "UPDATE users SET profile_image='$dbpath' WHERE id='$id'";
     $run = mysqli_query($conn, $sql);
     if ($run) {
+
         $response[] = array(
             "message" => 'users Image Updated : ' . $id,
             "img_link" => $dbpath,

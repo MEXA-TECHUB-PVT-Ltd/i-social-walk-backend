@@ -15,6 +15,7 @@ while ($row = mysqli_fetch_assoc($run)) {
         "id" => $row['id'],
         "image_link" => $row['image'],
         "name" => $row['name'],
+        "Admin id" => $row['created_by_user_id'],
         "group_privacy" => $row['group_privacy'],
         "group_visibility" => $row['group_visibility'],
         "created_at" => $row['created_at'],

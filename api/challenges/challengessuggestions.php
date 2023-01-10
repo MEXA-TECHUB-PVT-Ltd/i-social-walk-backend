@@ -8,7 +8,7 @@ $DecodeData = json_decode($EncodeData, true);
 $user_id = $DecodeData['user_id'];
 $sql = "SELECT * 
 FROM challenges
-ORDER BY RAND()";
+ORDER BY RAND() limit 10";
 
 $run = mysqli_query($conn, $sql);
 if (mysqli_num_rows($run)) {
@@ -25,11 +25,12 @@ if (mysqli_num_rows($run)) {
             $challenge_type = $row['challenge_type'];
             $challenge_visibility = $row['challenge_visibility'];
             $start_date = $row['start_date'];
-
+            $end_date = $row['end_date'];
             $response[] = array(
                 "challenge ID" =>  $challenge_id,
                 "challenge Name" =>  $name,
                 "admin" => $admin,
+                "end_date" => $end_date,
                 "start_date" => $start_date,
                 "status" => 'challenges for suggestions',
                 "challenge type" => $challenge_type,
@@ -37,14 +38,13 @@ if (mysqli_num_rows($run)) {
                 "challenge visibility" =>  $challenge_visibility,
                 "error" => false,
             );
-        } else {
-
-            $response[] = array(
-
-                "message" => 'You are added in all challenges',
-                "error" => false,
-            );
         }
+    }
+    if (empty($response)) {
+        $response[] = array(
+            "message" => "you are added in all challenges",
+            "error" => true,
+        );
     }
 }
 

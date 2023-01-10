@@ -32,8 +32,8 @@ if ($checkemail_result == 1) {
     echo json_encode($response);
 } else {
     $password = md5($password);
-    $sql = "INSERT INTO users(email,password,phoneno,first_name,last_name,status,device_token,created_at) 
-	VALUES ('$email','$password','$phoneno','$first_name','$last_name','active','$devicetoken','$created_date')";
+    $sql = "INSERT INTO users(email,password,phoneno,first_name,last_name,status,device_token,created_at,Role) 
+	VALUES ('$email','$password','$phoneno','$first_name','$last_name','active','$devicetoken','$created_date','U')";
     $run = mysqli_query($conn, $sql);
 
     if ($run) {

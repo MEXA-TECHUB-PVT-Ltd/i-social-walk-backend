@@ -6,8 +6,8 @@ $data = json_decode($EncodeData, true);
 $user_id = $data['user_id'];
 $group_id = $data['group_id'];
 $adminid = $data['adminid'];
+$date = $data['date'];
 $status = "Membered";
-$date = date('d-m-y');
 foreach ($user_id as $user_id_list) {
 
     $sql = "Insert into group_member(group_id,user_id,status,created_at) Values ('{$group_id}','{$user_id_list}','membered','$date')";
@@ -24,7 +24,7 @@ if ($query) {
     foreach ($user_id as $user_id_list_member) {
         $noti_type = "Admin to User For group";
         $uniqid = uniqid();
-        $date = date('d-m-y');
+
         $sql = "Insert into notification(noti_type,uniqid,from_id,to_id,date,status) Values ('{$noti_type}','{$uniqid}','{$adminid}','{$user_id_list_member}','$date','unread')";
         $query = mysqli_query($conn, $sql);
         if ($query) {

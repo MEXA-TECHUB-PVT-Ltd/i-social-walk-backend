@@ -4,7 +4,7 @@ include('../include/connection.php');
 $EncodeData = file_get_contents('php://input');
 $data = json_decode($EncodeData, true);
 $id = $data['id'];
-echo $sqlqu = "Select * from user_watches where id='$id'";
+$sqlqu = "Select * from user_watches where id='$id'";
 $sqlquery = mysqli_query($conn, $sqlqu);
 if (mysqli_num_rows($sqlquery) > 0) {
     $sql = "Delete from user_watches WHERE id='$id'";

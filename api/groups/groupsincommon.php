@@ -17,7 +17,7 @@ while ($row = mysqli_fetch_assoc($run)) {
     if (mysqli_num_rows($run1) > 0) {
 
         if ($run1) {
-            $sql2 = "SELECT * FROM groups where id='$group_id'";
+            $sql2 = "SELECT * FROM user_groups where id='$group_id'";
             $run2 = mysqli_query($conn, $sql2);
             while ($row2 = mysqli_fetch_assoc($run2)) {
 

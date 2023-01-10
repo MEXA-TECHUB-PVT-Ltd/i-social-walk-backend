@@ -4,10 +4,12 @@ $EncodeData = file_get_contents('php://input');
 $data = json_decode($EncodeData, true);
 $from_id = $data['user_id'];
 $to_id = $data['to_id'];
+$date = $data['date'];
 
 $uniqid = uniqid();
 $noti_type = "friends to friends";
-$date = date('d-m-y h:i:s');
+
+
 $sql = "Insert into notification (noti_type,uniqid,from_id,to_id,date,status) Values ('{$noti_type}','{$uniqid}','{$from_id}','{$to_id}','$date','unread')";
 
 if (mysqli_query($conn, $sql)) {
@@ -26,7 +28,7 @@ if (mysqli_query($conn, $sql)) {
 
     $query = mysqli_query($conn, $sql1);
     if ($query) {
-        echo json_encode(array('from_id' => $from_id, 'your_frnd_id' => $to_id, 'message' => 'friend request sent', 'Notification id' => $id,  'error' => false));
+        echo json_encode(array('from_id' => $from_id, 'your_frnd_id' => $to_id, 'message' => 'friend request sent', 'Notification id' => $id,  'error' => false, 'date' => $date));
     }
 } else {
     echo json_encode(array('message' => 'Not Sent', 'error' => true));

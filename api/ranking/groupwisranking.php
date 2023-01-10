@@ -8,7 +8,7 @@ $EncodeData = file_get_contents('php://input');
 $DecodeData = json_decode($EncodeData, true);
 $this_user_id = $DecodeData['this_user_id'];
 $sql = "SELECT * 
-FROM groups
+FROM user_groups
 ";
 
 $run = mysqli_query($conn, $sql);

@@ -18,10 +18,10 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
 
     $dbpath = 'assets/' . basename($_FILES["image"]["name"]);
 
-    $sql = "UPDATE groups SET image='$dbpath' WHERE  id='$id'";
+    $sql = "UPDATE user_groups SET image='$dbpath' WHERE  id='$id'";
     $run = mysqli_query($conn, $sql);
     if ($run) {
-        $sql_user = "SELECT * FROM groups WHERE id='$id'";
+        $sql_user = "SELECT * FROM user_groups WHERE id='$id'";
         $run_user = mysqli_query($conn, $sql_user);
 
         while ($row_user = mysqli_fetch_assoc($run_user)) {

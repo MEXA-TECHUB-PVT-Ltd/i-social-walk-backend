@@ -21,7 +21,15 @@ if (mysqli_num_rows($run)) {
         if (mysqli_num_rows($run2) >= 0) {
             while ($row = mysqli_fetch_assoc($run2)) {
                 $user_id = $row['user_id'];
-
+                $query1 = "Select * from users where  id='$user_id'";
+                $run3 = mysqli_query($conn, $query1);
+                if (mysqli_num_rows($run3) >= 0) {
+                    while ($row = mysqli_fetch_assoc($run3)) {
+                        $firstname = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $image = $row['image'];
+                    }
+                }
                 $query = "Select * from daily_steps_records  where  user_id='$user_id'";
                 $run2 = mysqli_query($conn, $query);
                 if (mysqli_num_rows($run2) >= 0) {
@@ -39,11 +47,11 @@ if (mysqli_num_rows($run)) {
                         $response[] = array(
                             "Challenge ID" =>  $challenge_id,
                             "challengeName" => $challenge_name,
-                            "user_name" => $user_name,
+                            "user_name" => $firstname . '' . $last_name,
                             "image" => $image,
                             "Challenge calories_burnt" =>  $calories_burnt,
                             "distancecovered" => $distancecovered,
-
+                            "Image" => $image,
                             "status" => 'Ranking of members in Challenges ',
                             "Time Taken" => $time_taken,
                             "User id" => $user_id,

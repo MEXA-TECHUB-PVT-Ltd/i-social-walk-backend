@@ -19,17 +19,18 @@ $run = mysqli_query($conn, $sql);
 if (mysqli_num_rows($run)) {
     while ($row = mysqli_fetch_assoc($run)) {
         $user_id = $row['user_id'];
-        $query = "Select sum(steps),user_id,id from daily_steps_records where date BETWEEN  '$sub' and '$date' AND user_id='$user_id'  ";
-        $run2query = mysqli_query($conn, $query);
-        print_r(mysqli_fetch_array($run2query));
-        die();
+        $sql = "Select sum(steps),user_id,id from daily_steps_records where date BETWEEN  '$sub' and '$date' AND user_id='$user_id'  ";
+        $run2query = mysqli_query($conn, $sql);
+
+
         if (mysqli_num_rows($run2query) > 0) {
 
             while ($row2 = mysqli_fetch_assoc($run2query)) {
-
-                $id = $row2['id'];
-                $steps = $row2['sum(steps)'];
-                $user_id = $row2['user_id'];
+                $response[] = array(
+                    "id" => $row2['id'],
+                    "steps" => $row2['sum(steps)'],
+                    "user_id" => $row2['user_id'],
+                );
             }
             $sql = "SELECT first_name,last_name from users where id='$user_id'";
             $query1 = mysqli_query($conn, $sql);
@@ -42,15 +43,6 @@ if (mysqli_num_rows($run)) {
                     );
                 }
             }
-            $response[] = array(
-                "Users" => $users,
-                "Steps id" =>  $id,
-
-
-                "steps" => $steps,
-
-
-            );
         } else {
             $response[] = array(
 

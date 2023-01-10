@@ -5,7 +5,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $id = $data['id'];
 include('../include/connection.php');
 
-$sql = "Select * from groups WHERE  id='$id'";
+$sql = "Select * from user_groups WHERE  id='$id'";
 $result1 = mysqli_query($conn, $sql);
 $rowcount = mysqli_num_rows($result1);
 if ($rowcount > 0) {

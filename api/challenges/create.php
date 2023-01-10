@@ -35,24 +35,29 @@ if (mysqli_query($conn, $sql)) {
             $id = $row['id'];
         }
     }
-    echo json_encode(array(
-        'challenge id' => $id,
-        'name' => $name,
-        'created_by_user_id'
-        => $created_by_user_id,
-        'challenge_type' => $challenge_type,
-        'challenge_visibility' => $challenge_visibility,
-        'challenge_privacy' => $challenge_privacy,
-        'challenge_privacy' => $challenge_privacy,
-        'start_date' => $start_date,
-        'end_date' => $end_date,
-        'challenge_metric_no' => $challenge_metric_no,
-        'First Name' =>
-        $first_name, 'Last Name' => $last_name,
-        'profile_image' => $profile_image,
-        'email' => $email,
-        'message' => 'Challenge Created Successfully ', 'error' => false
-    ));
+    $sqlqueryfinal = "Insert into challenges_participants(challenge_id,user_id,status)VALUES('$id','$created_by_user_id','membered')";
+    $queryfinal = mysqli_query($conn, $sqlqueryfinal);
+    if ($queryfinal) {
+
+        echo json_encode(array(
+            'challenge id' => $id,
+            'name' => $name,
+            'created_by_user_id'
+            => $created_by_user_id,
+            'challenge_type' => $challenge_type,
+            'challenge_visibility' => $challenge_visibility,
+            'challenge_privacy' => $challenge_privacy,
+            'challenge_privacy' => $challenge_privacy,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'challenge_metric_no' => $challenge_metric_no,
+            'First Name' =>
+            $first_name, 'Last Name' => $last_name,
+            'profile_image' => $profile_image,
+            'email' => $email,
+            'message' => 'Challenge Created Successfully ', 'error' => false
+        ));
+    }
 } else {
     echo json_encode(array('message' => 'Not Created', 'error' => true));
 }

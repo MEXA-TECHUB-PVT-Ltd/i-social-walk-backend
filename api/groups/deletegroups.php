@@ -7,7 +7,7 @@ $data = json_decode($EncodeData, true);
 $group_id = $data['group_id'];
 
 
-$sql1 = "Delete from groups where id='$group_id'";
+$sql1 = "Delete from user_groups where id='$group_id'";
 $query = mysqli_query($conn, $sql1);
 if ($query) {
     $response[] = array(

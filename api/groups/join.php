@@ -5,9 +5,9 @@ $EncodeData = file_get_contents('php://input');
 $data = json_decode($EncodeData, true);
 $group_id = $data['group_id'];
 $user_id = $data['user_id'];
+$date = $data['date'];
 
-$created_date = date('d-m-y h:i:s');
-$sql = "SELECT * from groups where id='$group_id'";
+$sql = "SELECT * from user_groups where id='$group_id'";
 
 $result = mysqli_query($conn, $sql);
 $rowcount = mysqli_num_rows($result);
@@ -24,7 +24,7 @@ if ($rowcount > 0) {
 
         $noti_type = "user to group";
         $uniqid = uniqid();
-        $date = date('d-m-y h:i:s');
+
         $sql1 = "Insert into notification(noti_type,uniqid,from_id,to_id,date,status) Values ('$noti_type','$uniqid','$user_id','$created_by_user_id','$date','unread')";
         $result = mysqli_query($conn, $sql1);
         if ($result) {
@@ -37,7 +37,7 @@ if ($rowcount > 0) {
             }
         }
         $name = getname($user_id);
-        $sql = "Insert into group_notification(noti_type_id,group_id,status,created_date) Values ('{$id}','{$group_id}','requested','$created_date')";
+        $sql = "Insert into group_notification(noti_type_id,group_id,status,created_date) Values ('{$id}','{$group_id}','requested','$date')";
         $result = mysqli_query($conn, $sql);
         $sql = "Insert into group_member(group_id,user_id,status,created_at) Values ('{$group_id}','{$user_id}','requested','$date')";
         $result = mysqli_query($conn, $sql);
@@ -62,7 +62,7 @@ if ($rowcount > 0) {
             }
         }
     } else {
-        $sql = "Insert into group_member(group_id,user_id,status,created_at) Values ('{$group_id}','{$user_id}','membered','$created_date')";
+        $sql = "Insert into group_member(group_id,user_id,status,created_at) Values ('{$group_id}','{$user_id}','membered','$date')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             $response[] = array(
@@ -82,7 +82,7 @@ if ($rowcount > 0) {
         $noti_type = "user to group";
         $uniqid = uniqid();
         $name = getname($user_id);
-        $date = date('d-m-y h:i:s');
+
         $sql1 = "Insert into notification(noti_type,uniqid,from_id,to_id,date,status) Values ('$noti_type','$uniqid','$user_id','$created_by_user_id','$date','unread')";
         $result = mysqli_query($conn, $sql1);
         if ($result) {

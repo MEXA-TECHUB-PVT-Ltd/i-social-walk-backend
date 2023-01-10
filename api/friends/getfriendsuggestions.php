@@ -36,6 +36,12 @@ if (mysqli_num_rows($run)) {
             );
         }
     }
+    if (empty($response)) {
+        $response[] = array(
+            "message" => "you are added in all users",
+            "error" => true,
+        );
+    }
 }
 
 

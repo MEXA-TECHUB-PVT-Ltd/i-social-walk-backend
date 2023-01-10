@@ -7,7 +7,7 @@ $DecodeData = json_decode($EncodeData, true);
 
 $id = $DecodeData['id'];
 $group_privacy = $DecodeData['group_privacy'];
-$sql1 = "SELECT * from groups where  id='$id' ";
+$sql1 = "SELECT * from user_groups where  id='$id' ";
 $group_query = mysqli_query($conn, $sql1);
 if ($group_query) {
     while ($row = mysqli_fetch_assoc($group_query)) {
@@ -19,7 +19,7 @@ if ($group_query) {
         $image = $row['image'];
     }
 }
-$sql = "UPDATE groups SET group_privacy='$group_privacy' WHERE id='$id'";
+$sql = "UPDATE user_groups SET group_privacy='$group_privacy' WHERE id='$id'";
 
 $run = mysqli_query($conn, $sql);
 if ($run) {

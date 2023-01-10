@@ -3,7 +3,7 @@ header('Content-Type:application/json');
 header('Acess-Control-Allow-Origin:*');
 include('../include/connection.php');
 
-$sql = "SELECT * FROM groups";
+$sql = "SELECT * FROM user_groups";
 $run = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($run)) {
 

@@ -6,7 +6,7 @@ include('../include/connection.php');
 $EncodeData = file_get_contents('php://input');
 $DecodeData = json_decode($EncodeData, true);
 $id = $DecodeData['id'];
-$sql = "SELECT * FROM groups where id='$id'";
+$sql = "SELECT * FROM user_groups where id='$id'";
 $run = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($run)) {
 

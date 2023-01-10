@@ -6,10 +6,10 @@ $data = json_decode($EncodeData, true);
 $challenge_id = $data['challenge_id'];
 $group_id = $data['group_id'];
 $User_id = $data['user_id'];
-$date = date('d-m-y h:i:s');
-$noti_type = "user to admin for challenge joining";
+$date = $data['date'];
+$noti_type = "user to group admin for challenge joining";
 $uniqid = uniqid();
-$sql = "SELECT * from groups where id='$group_id'";
+$sql = "SELECT * from user_groups where id='$group_id'";
 $query = mysqli_query($conn, $sql);
 if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_assoc($query)) {
@@ -59,9 +59,9 @@ if (mysqli_num_rows($query) > 0) {
 
                     );
                     $queryrun = "SELECT * from notification where uniqid='$uniqid'";
-                    $query = mysqli_query($conn, $queryrun);
-                    if ($query) {
-                        while ($rownot = mysqli_fetch_assoc($query)) {
+                    $querynot = mysqli_query($conn, $queryrun);
+                    if ($querynot) {
+                        while ($rownot = mysqli_fetch_assoc($querynot)) {
                             $noti_type_id = $rownot['id'];
                         }
                         $sql = "INSERT into challenges_groups(noti_type_id,challenge_id,group_id,status)VALUES('$noti_type_id','$challenge_id','$group_id','requested')";

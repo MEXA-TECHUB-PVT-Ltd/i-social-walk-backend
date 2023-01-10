@@ -7,7 +7,7 @@ $id = $DecodeData['id'];
 $name = $DecodeData['name'];
 
 $group_visibility = $DecodeData['group_visibility'];
-$sql = "UPDATE groups SET name='$name',group_visibility='$group_visibility' WHERE id ='$id '";
+$sql = "UPDATE user_groups SET name='$name',group_visibility='$group_visibility' WHERE id ='$id '";
 
 $run = mysqli_query($conn, $sql);
 if ($run) {

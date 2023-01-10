@@ -1,10 +1,9 @@
-
 <?php
 
 $data = json_decode(file_get_contents("php://input"), true);
 $name = $data['name'];
 include('../include/connection.php');
-$sql = "Select * from groups WHERE  name LIKE '%$data[name]%'";
+$sql = "Select * from user_groups WHERE  name LIKE '%$data[name]%'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -22,5 +21,3 @@ if ($rowcount > 0) {
     );
 }
 echo json_encode($response);
-?>
-S

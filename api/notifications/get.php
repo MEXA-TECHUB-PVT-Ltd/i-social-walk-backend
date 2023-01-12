@@ -128,6 +128,28 @@ ON notification.id = group_notification.noti_type_id where noti_type_id='$id'";
                     'noti_type_id' => $row4['noti_type_id'],
                 );
             }
+        } elseif ($noti_type == 'challenge admin to user') {
+            $noti_type;
+
+            $sqlgroupch = "SELECT *
+FROM notification
+INNER JOIN challenges_groups
+ON notification.id = challenges_groups.noti_type_id where noti_type_id='$id'";
+
+
+
+            $resultgroupch = mysqli_query($conn, $sqlgroupch);
+            while ($rowgroupch = mysqli_fetch_assoc($resultgroupch)) {
+                $responsequery[] = array(
+                    'group_id' => $rowgroupch['group_id'],
+                    'challenge_id' => $rowgroupch['challenge_id'],
+                    'status' => $rowgroupch['status'],
+                    'to_id' => $rowgroupch['to_id'],
+                    'from_id' => $rowgroupch['from_id'],
+
+                    'noti_type_id' => $rowgroupch['noti_type_id'],
+                );
+            }
         } elseif ($noti_type == 'user to group admin for challenge joining') {
             $noti_type;
 

@@ -7,7 +7,7 @@ $email = $DecodeData['email'];
 $newpass = $DecodeData['newpass'];
 $confirmpass = $DecodeData['confirmpass'];
 $newpassword = md5($newpass);
-$sql = "SELECT email FROM users where otp_code='$codeuser'";
+$sql = "SELECT email FROM users where email='$email'";
 
 $run = mysqli_query($conn, $sql);
 

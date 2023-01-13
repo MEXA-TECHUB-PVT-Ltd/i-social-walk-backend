@@ -1,58 +1,74 @@
 <?php
 
 header('Content-Type: application/json');
-
-include('../include/connection.php');
 include('../include/functions.php');
+include('../include/connection.php');
 $EncodeData = file_get_contents('php://input');
 $DecodeData = json_decode($EncodeData, true);
-$this_user_id = $DecodeData['this_user_id'];
+$group_id = $DecodeData['group_id'];
+$date = date('Y-m-d');
+$sub = date('Y-m-d', strtotime('-7 days'));
+$date = date("Y-m-d");
 $sql = "SELECT * 
-FROM user_groups
-";
-
+FROM group_member 
+where group_id='$group_id'";
+$date = date('Y-m-d');
+$finalsteps = 0;
+$sub = date('Y-m-d', strtotime('-7 days'));
 $run = mysqli_query($conn, $sql);
 if (mysqli_num_rows($run)) {
     while ($row = mysqli_fetch_assoc($run)) {
-        $group_id = $row['id'];
+        $user_id = $row['user_id'];
+        $sql = "Select sum(steps),user_id,id from daily_steps_records where date BETWEEN  '$sub' and '$date' AND user_id='$user_id'  ";
 
-        $query = "Select * from group_member where group_id='$group_id' AND user_id!='$this_user_id'";
-        $run2 = mysqli_query($conn, $query);
-        if (mysqli_num_rows($run2) >= 0) {
-            while ($row = mysqli_fetch_assoc($run2)) {
-                $user_id = $row['user_id'];
+        $run2query = mysqli_query($conn, $sql);
 
-                $query = "Select * from daily_steps_records  where  user_id='$user_id'";
-                $run2 = mysqli_query($conn, $query);
-                if (mysqli_num_rows($run2) >= 0) {
-                    while ($row = mysqli_fetch_assoc($run2)) {
-                        $id = $row['id'];
-                        $calories_burnt = $row['calories_burnt'];
-                        $distancecovered = $row['distancecovered'];
-                        $user_id = $row['user_id'];
-                        $user_name = getname($user_id);
-                        $time_taken = $row['time_taken'];
-                        $avg_pace = $row['avg_pace'];
-                        $created_at = $row['date'];
 
-                        $response[] = array(
-                            "Group ID" =>  $group_id,
-                            "Group calories_burnt" =>  $calories_burnt,
-                            "distancecovered" => $distancecovered,
-                            "user_name" => $user_name,
-                            "status" => 'Ranking of members in groups ',
-                            "Time Taken" => $time_taken,
-                            "User id" => $user_id,
-                            "Average Pace" =>  $avg_pace,
-                            "error" => false,
-                        );
-                    }
+        if (mysqli_num_rows($run2query) > 0) {
+
+            while ($row2 = mysqli_fetch_assoc($run2query)) {
+                if ($row2['sum(steps)'] == NULL) {
+                    $response[] = array(
+                        "user_id" => $user_id,
+                        "steps" => 0,
+
+                    );
+                } else {
+                    $response[] = array(
+                        "id" => $row2['id'],
+                        "steps" => $row2['sum(steps)'],
+                        "user_id" => $row2['user_id'],
+                    );
                 }
             }
+            $sql = "SELECT first_name,last_name from users where id='$user_id'";
+            $query1 = mysqli_query($conn, $sql);
+
+            if ($query1) {
+                while ($row = mysqli_fetch_assoc($query1)) {
+                    $users[] = array(
+                        "Name" => $row['first_name'] . ' ' . $row['last_name'],
+                        "User Id" => $user_id,
+                    );
+                }
+            }
+        } else {
+            $response[] = array(
+
+                "message" => 'No Record from previous seven days ',
+
+                "error" => true,
+            );
         }
     }
-}
+} else {
+    $response[] = array(
 
+        "message" => 'No Group Exists ',
+
+        "error" => true,
+    );
+}
 
 
 echo json_encode($response);

@@ -44,7 +44,7 @@ if ($login == 1) {
         echo json_encode($response);
     } else {
         $response[] = array(
-
+            "code" => $code,
             "message" => 'Error Sending Email',
             "error" => true,
 
